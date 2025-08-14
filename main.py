@@ -5,11 +5,14 @@ from player import Player
 
 
 def main():
-    print("Starting Asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
+    print("Starting Asteroids!")    
     pygame.init()
     
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))    
     clock = pygame.time.Clock()
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
@@ -23,21 +26,25 @@ def main():
 
         handle_input(screen)
 
-        update(screen, dt, player)
+        update(dt, updatable)
 
-        render(screen, player)
+        render(screen, drawable)
 
         dt = (clock.tick(fps) / 1000)
 
 def handle_input(screen):
     pass
 
-def update(screen, dt, player):
-    player.update(dt)
+def update(dt, group):
+    for member in group:
+        member.update(dt)
 
-def render(screen, player):
+def render(screen, group):
     screen.fill("black")
-    player.draw(screen)
+
+    for member in group:
+        member.draw(screen)
+
     pygame.display.flip()
 
 if __name__ == "__main__":

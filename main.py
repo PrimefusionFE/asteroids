@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 from constants import *
-
+from player import Player
 
 
 def main():
@@ -10,11 +10,9 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
     pygame.init()
     
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    game_loop(screen)
-
-def game_loop(screen):
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))    
     clock = pygame.time.Clock()
+    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     dt = 0
     fps = 60
 
@@ -27,7 +25,7 @@ def game_loop(screen):
 
         update(screen)
 
-        render(screen)
+        render(screen, player)
 
         dt = (clock.tick(fps) / 1000)
 
@@ -37,8 +35,9 @@ def handle_input(screen):
 def update(screen):
     pass
 
-def render(screen):
+def render(screen, player):
     screen.fill("black")
+    player.draw(screen)
     pygame.display.flip()
 
 if __name__ == "__main__":

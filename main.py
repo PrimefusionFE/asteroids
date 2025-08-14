@@ -23,7 +23,7 @@ def main():
 
         handle_input(screen)
 
-        update(screen)
+        update(screen, dt, player)
 
         render(screen, player)
 
@@ -32,8 +32,8 @@ def main():
 def handle_input(screen):
     pass
 
-def update(screen):
-    pass
+def update(screen, dt, player):
+    player.update(dt)
 
 def render(screen, player):
     screen.fill("black")

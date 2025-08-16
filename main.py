@@ -34,7 +34,7 @@ def main():
 
         handle_input(screen)
 
-        update(dt, updatable)
+        update(dt, updatable, asteroids, shots)
 
         if is_game_over(asteroids, player):
             print ("Game over!")
@@ -47,9 +47,15 @@ def main():
 def handle_input(screen):
     pass
 
-def update(dt, group):
-    for member in group:
+def update(dt, updatable, asteroids, shots):
+    for member in updatable:
         member.update(dt)
+
+    for asteroid in asteroids:
+        for shot in shots:
+            if asteroid.is_colliding(shot):
+                asteroid.split()
+                shot.kill()
 
 def is_game_over(asteroids, player):
     for a in asteroids:
